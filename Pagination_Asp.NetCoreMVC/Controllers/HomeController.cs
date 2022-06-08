@@ -1,32 +1,31 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Pagination_Asp.NetCoreMVC.Models;
-using System.Diagnostics;
 
 namespace Pagination_Asp.NetCoreMVC.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
-
+        Database_Access_layer.db dbop = new Database_Access_layer.db();
         public IActionResult Index()
         {
+            return View(dbop.GetProduct(1));
+        }
+
+        [HttpPost]
+        public IActionResult Index(int currentPageIndex)
+        {
+            return View(dbop.GetProduct(currentPageIndex));
+        }
+
+        public IActionResult About()
+        {
+            ViewData["Message"] = "Your Application description page";
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult Contact()
         {
+            ViewData["Message"] = "Your contact page";
             return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }
