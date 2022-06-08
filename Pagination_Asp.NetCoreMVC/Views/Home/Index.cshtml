@@ -1,8 +1,45 @@
-﻿@{
+﻿@using Pagination_Asp.NetCoreMVC.Models;
+@model ProductModel
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="row">
+    <div class="col-md-8">
+        <form asp-action="Index" asp-controller="Home" method="post">
+            <table>
+                <tr>
+                    <th>Product Name</th>
+                    <th>Price</th>
+                    <th>Category</th>
+                    <th>Manufacturer</th>
+                </tr>
+                @foreach(Product  product in Model.Products)
+                {
+                    <tr>
+                        <td>@product.PName</td>
+                        <td>@product.Price</td>
+                        <td>@product.Category</td>
+                        <td>@product.Manufacturer</td>
+                    </tr>
+                }
+            </table>
+            <br />
+            <table>
+                <tr>
+                    @for(int i = 0; i < Model.PageCount; i++)
+                    {
+                        <td>
+                            @if(i != Model.CurrentIndex)
+                            {
+                                <a href="Javascript: PagerClick(@i);">@i</a>        
+                             }
+                        </td>
+                    }
+                </tr>
+            </table>
+        </form>
+    </div>
 </div>
+ 
