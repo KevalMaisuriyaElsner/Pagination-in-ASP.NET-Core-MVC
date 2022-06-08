@@ -30,7 +30,7 @@ namespace Pagination_Asp.NetCoreMVC.Database_Access_layer
                 productmodel.Products.Add(new Product
                 {
                     PName = dr["PName"].ToString(),
-                    Price = Convert.ToInt32(dr["Price"]),
+                    Price = Convert.ToInt32(dr["Price"]), 
                     Category = dr["Category"].ToString(),
                     Manufacturer = dr["Manufacturer"].ToString()
                 });
