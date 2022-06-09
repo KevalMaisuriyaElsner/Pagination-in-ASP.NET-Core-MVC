@@ -27,9 +27,10 @@ namespace Pagination_Asp.NetCoreMVC.Database_Access_layer
             ProductModel productmodel = new ProductModel();
             List<Product> list = new List<Product>();
             foreach (DataRow dr in ds.Tables[0].Rows)
-            {
+            {   
                 list.Add(new Product
                 {
+                    PId = Convert.ToInt32(dr["PId"]),
                     PName = dr["PName"].ToString(),
                     Price = Convert.ToInt32(dr["Price"]), 
                     Category = dr["Category"].ToString(),
