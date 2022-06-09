@@ -11,12 +11,12 @@ namespace Pagination_Asp.NetCoreMVC.Database_Access_layer
 {
     public class db
     {
-        SqlConnection con = new SqlConnection("Data Source=DESKTOP-LOCR2E2;User ID=keval;Password=********;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+        SqlConnection con = new SqlConnection("server=DESKTOP-LOCR2E2;Initial Catalog=ProductDb;Integrated Security=False;Persist Security Info=False;User=keval;Password=12345");
     
         public ProductModel GetProduct(int CurrentPage)
         {
             int maxRows = 5;
-            SqlCommand com = new SqlCommand("Sp_Product",con);
+            SqlCommand com = new SqlCommand("Sp_Product", con);
             com.CommandType = CommandType.StoredProcedure;
             com.Parameters.AddWithValue("@Pageindex", CurrentPage);
             com.Parameters.AddWithValue("@Pagesize", maxRows);
@@ -25,9 +25,10 @@ namespace Pagination_Asp.NetCoreMVC.Database_Access_layer
             DataSet ds = new DataSet();
             da.Fill(ds);
             ProductModel productmodel = new ProductModel();
+            List<Product> list = new List<Product>();
             foreach (DataRow dr in ds.Tables[0].Rows)
             {
-                productmodel.Products.Add(new Product
+                list.Add(new Product
                 {
                     PName = dr["PName"].ToString(),
                     Price = Convert.ToInt32(dr["Price"]), 
@@ -35,6 +36,7 @@ namespace Pagination_Asp.NetCoreMVC.Database_Access_layer
                     Manufacturer = dr["Manufacturer"].ToString()
                 });
             }
+            productmodel.Products = list;
             productmodel.PageCount = Convert.ToInt32(ds.Tables[1].Rows[0][0]) / maxRows;
             productmodel.CurrentIndex = CurrentPage;
             return productmodel;
