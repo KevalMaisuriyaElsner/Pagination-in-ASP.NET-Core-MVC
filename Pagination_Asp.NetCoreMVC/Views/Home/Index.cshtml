@@ -33,13 +33,24 @@
                         <td>
                             @if(i != Model.CurrentIndex)
                             {
-                                <a href="Javascript: PagerClick(@i);">@i</a>        
-                             }
+                                <a href="Javascript: PagerClick(@i);">@i</a>
+                            }
+                            else
+                            {
+                                <span>@i</span>
+                            }
                         </td>
                     }
                 </tr>
             </table>
+            <input type="hidden" id="hfCurrentPageIndex" name="currentPageIndex"/>
         </form>
+        <script>
+            function PagerClick(index) {
+                document.getElementById("hfCurrentPageIndex").value.index;
+                document.forms[0].submit();
+            }
+        </script>
     </div>
 </div>
  
