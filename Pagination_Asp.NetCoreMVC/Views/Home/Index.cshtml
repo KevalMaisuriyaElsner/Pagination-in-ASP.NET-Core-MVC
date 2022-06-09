@@ -49,7 +49,9 @@
         </form>
         <script>
             function PagerClick(index) {
-                document.getElementById("hfCurrentPageIndex").value.index;
+                //alert(index);    
+                $("#hfCurrentPageIndex").val(index);
+                //document.getElementById("hfCurrentPageIndex").value.index;
                 document.forms[0].submit();
             }
         </script>
